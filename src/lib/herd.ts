@@ -11,9 +11,9 @@ export class Herd {
     // Territory determines where people are born.
     // Black hole kills some individuals as time passes.
     private individuals: Individual[] = [];
-    private birthsPerTick: number = 1;
+    private birthsPerTick: number = 0;
     private birthSurvivalRate: number = 0.01;
-    private tickSurvivalRate: number = 0.999;
+    private tickSurvivalRate: number = 1;
     private territory: Vector;
     private blackHole: BlackHole;
 
@@ -85,9 +85,9 @@ export class Individual {
         this.acceleration = _.createVector();
         this.maxSpeed = 3;
 
-        this.seperationBias = _.random(1, 2);
-        this.alignmentBias = _.random(0.5, 1.5);
-        this.cohesionBias = _.random(0.1, 1);
+        this.seperationBias = _.random(1, 2); // 1, 2
+        this.alignmentBias = _.random(0, 1); // 0.5, 1.5
+        this.cohesionBias = _.random(0, 0); // 0.1, 1
     }
 
     // Render this individual inside simulation.
@@ -223,5 +223,8 @@ export class BlackHole {
         return 50 / (15 + this.position.dist(position))
     }
 
-    render() { this._.circle(this.position.x, this.position.y, 10) }
+    render() {
+        this._.random(-1)
+        this._.circle(this.position.x, this.position.y, 10)
+    }
 }
